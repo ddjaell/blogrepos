@@ -56,6 +56,12 @@ public class Post {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+	public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 	
 }
