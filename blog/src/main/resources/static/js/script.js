@@ -17,7 +17,7 @@ window.Event = new Vue({
 
 Vue.component('login-component',{
     template: '<ul class="navMenu" v-if="!isLoggedIn()" style="float:right"><li style="margin-right:5px"><a href="/login">Login</a></li><li><a href="/registration">Register</a></li></ul>' +
-    '<p v-else id="loggedIn">{{logged_in_msg}} <span v-on:click="logOut" v-show="isLoggedIn()"><b color="blue">Logout</b></span></p>',
+    '<p v-else id="loggedIn">{{logged_in_msg}} <span v-on:click="logOut" v-show="isLoggedIn()"><a color="blue" style="margin-right:5px">Logout</a></span><a href="/write">Write</a></p>',
     data: function(){
         return {logged_in_msg : ""}
     },
@@ -47,5 +47,7 @@ Vue.component('login-component',{
         isLoggedIn(){
             return window.Event.isLoggedIn;
         }
+
     }
 });
+

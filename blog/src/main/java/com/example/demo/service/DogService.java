@@ -60,7 +60,7 @@ public class DogService {
                           
           
         );
-        System.out.println("doglist");
+        //System.out.println("doglist");
   		return dogList;        
 	  }
 

@@ -44,14 +44,16 @@ public class BlogController {
         return postService.getPost(id);
     }
 
-    @PostMapping(value="/post")
-    public String publishPost(@RequestBody Post post){
+    @PostMapping(value="/post" , produces = "application/json; charset=utf8")
+    public boolean publishPost(@RequestBody Post post){
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(post.getDate() == null)
             post.setDate(new Date());
         post.setCreator(userService.getUser(userDetails.getUsername()));
         postService.insert(post);
-        return "Post was published";
+        //System.out.println("body ==" + post.getBody());
+        //System.out.println("title ==" + post.getTitle());
+        return true;
     }
 
     @GetMapping(value="/posts/{username}")
@@ -75,7 +77,7 @@ public class BlogController {
         return commentService.getComments(postId);
     }
 
-    @PostMapping(value = "/post/postComment")
+    @PostMapping(value = "/post/postComment" , produces = "application/json; charset=utf8")
     public boolean postComment(@RequestBody CommentPojo comment){
         Post post = postService.find(comment.getPostId());
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

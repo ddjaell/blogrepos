@@ -1,13 +1,20 @@
 package com.example.demo;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
+
+import javax.servlet.Filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.example.demo.config.CustomUserDetails;
 import com.example.demo.entities.Role;
@@ -49,4 +56,17 @@ public class BlogApplication {
 	private UserDetailsService userDetailsService(final UserRepository repository) {
 		return username -> new CustomUserDetails(repository.findByUsername(username));
 	}
+	
+	@Bean
+    public HttpMessageConverter<String> responseBodyConverter() {
+        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+    }
+ 
+    @Bean
+    public Filter characterEncodingFilter() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+        return characterEncodingFilter;
+    }
 }
