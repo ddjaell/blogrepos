@@ -1,1 +1,1 @@
-# blogrepos
+Spring boot + JPA + mysql + vuejs + thymeleaf
